@@ -65,10 +65,10 @@ $this->Breadcrumbs->add([
         <table class="table table-hover text-nowrap">
             <tr>
                 <th><?= __('Id') ?></th>
-                <th><?= __('Judul Foto') ?></th>
+                <th><?= __('Foto') ?></th>
                 <th><?= __('Deskripsi') ?></th>
                 <th><?= __('Tgl Unggahan') ?></th>
-                <th><?= __('Foto') ?></th>
+                <th><?= __('nama file') ?></th>
                 <th><?= __('Album Id') ?></th>
                 <th><?= __('User Id') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
@@ -83,7 +83,7 @@ $this->Breadcrumbs->add([
                 <?php $i = 1; foreach ($album->foto as $foto) : ?>
                     <tr>
                         <td><?= h($i++) ?></td>
-                        <td><?= h($foto->judul_foto) ?></td>
+                        <td><?= $this->Html->image('img/'.$foto->lokasi_foto, ['class' => 'card-img-top img-thumbnail', 'alt' => $foto->judul_foto])?></td>
                         <td><?= h($foto->deskripsi) ?></td>
                         <td><?= h($foto->tgl_unggahan->format('d-m-Y H:i:s')) ?></td>
                         <td><?= h($foto->lokasi_foto) ?></td>

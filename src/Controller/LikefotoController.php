@@ -38,26 +38,49 @@ class LikefotoController extends AppController
     }
 
     /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $likefoto = $this->Likefoto->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $likefoto = $this->Likefoto->patchEntity($likefoto, $this->request->getData());
-            if ($this->Likefoto->save($likefoto)) {
-                $this->Flash->success(__('The likefoto has been saved.'));
+ * Add method
+ *
+ * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+ */
+/**
+ * Add method
+ *
+ * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+ */
+/**
+ * Add method
+ *
+ * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+ */
+public function add()
+{
+    $likefoto = $this->Likefoto->newEmptyEntity();
+    if ($this->request->is('post')) {
+        // Simpan referer URL dalam session
+        $this->request->getSession()->write('referer', $this->request->referer());
 
-                return $this->redirect(['controller'=>'Foto','action' => 'view/'.$likefoto->foto_id]);
-            }
-            $this->Flash->error(__('The likefoto could not be saved. Please, try again.'));
+        $likefoto = $this->Likefoto->patchEntity($likefoto, $this->request->getData());
+        if ($this->Likefoto->save($likefoto)) {
+            $this->Flash->success(__('The likefoto has been saved.'));
+
+            // Ambil referer URL dari session
+            $referer = $this->request->getSession()->read('referer');
+
+            // Hapus referer URL dari session setelah digunakan
+            $this->request->getSession()->delete('referer');
+
+            // Redirect ke referer URL
+            return $this->redirect($referer);
         }
-        $foto = $this->Likefoto->Foto->find('list', limit: 200)->all();
-        $user = $this->Likefoto->User->find('list', limit: 200)->all();
-        $this->set(compact('likefoto', 'foto', 'user'));
+        $this->Flash->error(__('The likefoto could not be saved. Please, try again.'));
     }
+    $foto = $this->Likefoto->Foto->find('list', limit: 200)->all();
+    $user = $this->Likefoto->User->find('list', limit: 200)->all();
+    $this->set(compact('likefoto', 'foto', 'user'));
+}
+
+
+
 
     /**
      * Edit method

@@ -79,20 +79,19 @@ foreach ($foto->likefoto as $likefoto) {
         <?php if ($userLiked): ?>
             <?= $this->Form->create(null, ['url' => ['controller'=>'Likefoto', 'action' =>'delete', $userLiked->id],'role'=>'form']) ?>
             <div class="ml-auto">
-                <?= $this->Form->button(__('Unlike'), ['class' => 'btn btn-danger']) ?>
+                <?= $this->Form->button(__('🖤'), ['class' => 'btn btn-danger']) ?>
             </div>
             <?= $this->Form->end() ?>
         <?php else: ?>
             <?= $this->Form->create(null, ['url' => ['controller'=>'Likefoto', 'action' =>'add'],'role'=>'form']) ?>
             <div class="ml-auto">
-                <?= $this->Form->button(__('Like'), ['class' => 'btn btn-primary']) ?>
+                <?= $this->Form->button(__('❤️'), ['class' => 'btn btn-primary']) ?>
                 <?= $this->Form->control('foto_id', ['type' => 'hidden','value' => $foto->id,'options' => $foto, 'class' => 'form-control']) ?>
                 <?= $this->Form->control('user_id', ['value' => $this->Identity->get('id'),'options' => $user, 'class' => 'form-control','type' => 'hidden']) ?>
                 <?= $this->Form->control('tgl_like',['value' => $time->i18nFormat('yyyy-MM-dd HH:mm:ss'), 'type' => 'hidden']) ?>
             </div>
             <?= $this->Form->end() ?>
         <?php endif; ?>
-
         </div>
     </div>
 </div>

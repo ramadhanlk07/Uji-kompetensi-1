@@ -18,17 +18,17 @@ $this->Breadcrumbs->add([
         <h2 class="card-title">
             <!-- -->
         </h2>
-        <div class="d-flex ml-auto">
+        <div class="d-flex ml-auto ">
             <?= $this->Paginator->limitControl([], null, [
                 'label' => false,
-                'class' => 'form-control form-control-sm',
+                'class' => 'form-control form-control-sm ',
                 'templates' => ['inputContainer' => '{{content}}']
             ]); ?>
             <?= $this->Html->link(__('New Album'), ['action' => 'add'], ['class' => 'btn btn-primary btn-sm ml-2']) ?>
         </div>
     </div>
     <!-- /.card-header -->
-    <div class="card-body table-responsive p-0">
+    <div class="card-body table-responsive p-0" >
         <table class="table table-hover text-nowrap">
             <thead>
                 <tr>
@@ -49,9 +49,13 @@ $this->Breadcrumbs->add([
                         <td><?= h($album->tdl_dibuat->format('d-m-Y H:i:s')) ?></td>
                         <td><?= $album->has('user') ? $this->Html->link($album->user->username, ['controller' => 'User', 'action' => 'view', $album->user->id]) : '' ?></td>
                         <td class="actions">
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $album->id], ['class' => 'btn btn-xs btn-outline-primary', 'escape' => false]) ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $album->id], ['class' => 'btn btn-xs btn-outline-primary', 'escape' => false]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $album->id], ['class' => 'btn btn-xs btn-outline-danger', 'escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $album->id)]) ?>
+                            <?php if ($album->user_id === $this->request->getAttribute('identity')->get('id')) : ?>
+                                <?= $this->Html->link(__('View'), ['action' => 'view', $album->id], ['class' => 'btn btn-xs btn-outline-primary', 'escape' => false]) ?>
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $album->id], ['class' => 'btn btn-xs btn-outline-primary', 'escape' => false]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $album->id], ['class' => 'btn btn-xs btn-outline-danger', 'escape' => false, 'confirm' => __('Are you sure you want to delete # {0}?', $album->id)]) ?>
+                            <?php else : ?>
+                                <?= $this->Html->link(__('View'), ['action' => 'view', $album->id], ['class' => 'btn btn-xs btn-outline-primary', 'escape' => false]) ?>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

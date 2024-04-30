@@ -115,21 +115,17 @@ class FotoController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $foto = $this->Foto->get($id);
-        $cekTanggapan = $this->Foto->Komentarfoto->find()->where(['foto_id'=>$id])->count();
+        // $cekTanggapan = $this->Foto->Komentarfoto->find()->where(['foto_id'=>$id])->count();
         $filePath = WWW_ROOT . 'img' . DS .'img' . DS . $foto->lokasi_foto;
 
         // Hapus file foto jika ada
         if (file_exists($filePath)) {
             unlink($filePath);
         }
-        if(empty($cekTanggapan)){
-            if ($this->Foto->delete($foto)) {
-                $this->Flash->success(__('The foto has been deleted.'));
-            } else {
-                $this->Flash->error(__('The foto could not be deleted. Please, try again.'));
-            }
+        if ($this->Foto->delete($foto)) {
+            $this->Flash->success(__('The Foto has been deleted.'));
         } else {
-            $this->Flash->warning(__('Data komentar pada Komentar '.$foto->isi_komentar.' harap diperiksa kembali!'));
+            $this->Flash->error(__('The Foto could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

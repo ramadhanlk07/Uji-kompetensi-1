@@ -17,17 +17,17 @@ class AlbumController extends AppController
      */
     public function index()
     {
-            $id = $this->Authentication->getIdentity()->get('id');
-            if($id){
-                $query = $this->Album->find()->where(['Album.user_id'=>$id])->contain(['User']);
-            }else{
-                $query = $this->Album->find()->contain(['User']);
+            // $id = $this->Authentication->getIdentity()->get('id');
+            // // if($id){
+            // //     $query = $this->Album->find()->where(['Album.user_id'=>$id])->contain(['User']);
+            // // }else{
+            // //     $query = $this->Album->find()->contain(['User']);
                 
-            }
-            $album = $this->paginate($query);
-        // $query = $this->Album->find()
-        //     ->contain(['User']);s
-        // $album = $this->paginate($query);
+            // // }
+            // // $album = $this->paginate($query);
+        $query = $this->Album->find()
+            ->contain(['User']);
+        $album = $this->paginate($query);
 
         $this->set(compact('album'));
     }
